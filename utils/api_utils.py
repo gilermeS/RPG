@@ -65,7 +65,7 @@ def gerar_narrativa(action, state):
                 - Inventário: {state['inventory']}
                 - Últimas cenas: {state['history'][-2:] if len(state['history']) > 0 else "Nenhuma"}
                 - Cena atual: {state['current_scene']}
-                Gere de 1 a 2 parágrafos narrativos mantendo o clima de aventura, fantasia e coerência com o cenário. 
+                Gere de 1 a 2 parágrafos narrativos mantendo o clima de aventura, fantasia e coerência com o cenário. Ao final dos 1 a 2 parágrafos acabe em uma escolha para o jogador, fazendo-o tomar uma ação.
                 
                 **IMPORTANTE:**
                 - Sempre interaja com o HP e o inventário quando houver eventos relevantes
@@ -81,7 +81,7 @@ def gerar_narrativa(action, state):
                 """
 
     resposta = ollama.generate(
-        model="phi3:mini",
+        model="qwen3:0.6b",
         prompt=action,
         system=rpg_prompt,
         options={
@@ -89,7 +89,6 @@ def gerar_narrativa(action, state):
             "frequency_penalty": 0.8,
             "top_k": 30,
             "presence_penalty": 0.8,
-            "num_ctx": 2048
         },
         
     )
