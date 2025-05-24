@@ -58,7 +58,7 @@ def parse_state_changes(response_text: str, current_state: dict) -> dict:
 def gerar_narrativa(action, state):
 
     rpg_prompt = f"""
-                Você é um mestre de RPG experiente, narrando aventuras em português brasileiro.
+                Você é um mestre de RPG experiente, narrando aventuras em inglês.
                 Continue a história com base na ação do jogador: '{action}'.
                 Contexto atual:
                 - Pontos de Vida (HP): {state['hp']}
@@ -87,14 +87,25 @@ def gerar_narrativa(action, state):
         options={
             "temperature": 1, 
             "frequency_penalty": 0.8,
-            "top_k": 30,
+            "top_k": 40,
             "presence_penalty": 0.8,
         },
         
     )
 
 
+    pattern = r'</think>\n([\s\S]*)'
 
-    return resposta['response']
+    match = re.search(pattern, resposta['response'])
+
+    print(resposta['response'])
+
+    return match.group(1).strip()
+
+
+
+
+
+    # return resposta['response']
 
 

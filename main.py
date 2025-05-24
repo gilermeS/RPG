@@ -82,7 +82,7 @@ def display_typing_effect(text, color="cyan", justify="left"):
             # Add padding to ensure consistent width
             padded = Padding(content, (0, 1))
             live.update(padded, refresh=True)
-            time.sleep(0.02)
+            time.sleep(0.01)
     print()  # Add final newline
 
 
@@ -107,6 +107,7 @@ def main():
 
         if action == 'reset':
             state = get_initial_state()
+            save_game(state)
             break
 
         # Get narrative from local Ollama model
